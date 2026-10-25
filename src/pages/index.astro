@@ -1,0 +1,80 @@
+---
+import GridBackdrop from "vui-web/GridBackdrop.astro";
+import Tile from "vui-web/Tile.astro";
+import TileGroup from "vui-web/TileGroup.astro";
+import TopBar from "vui-web/TopBar.astro";
+import ComingSoonTile from "../components/ComingSoonTile.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// The app's own description of itself (Settings, About).
+const about = "A reader for language learners that counts each word you meet and keeps the sentences you met it in.";
+---
+<BaseLayout title="Errant Ant — coming soon" description={about}>
+  <GridBackdrop />
+  <TopBar>
+    <h1 class="vui-bar-brand" slot="brand">Errant Ant</h1>
+    <a href="#coming-soon">Coming soon</a>
+    <a href="#reading">Reading</a>
+    <a href="#words">Words</a>
+  </TopBar>
+
+  <main class="vui-groups">
+    <TileGroup title="Coming soon" id="coming-soon">
+      <Tile cols={4} rows={2} color="var(--tile-slate)" label="For language learners">
+        <p class="hero-text">{about}</p>
+      </Tile>
+      <ComingSoonTile />
+      <Tile cols={2} color="var(--tile-cobalt)" caption="UI languages">
+        <span class="figure">12</span>
+      </Tile>
+      <Tile cols={2} color="var(--tile-plum)" title="Local-first" caption="No account; your library stays on your computer" />
+    </TileGroup>
+
+    <TileGroup title="Reading" id="reading">
+      <Tile cols={4} rows={2} class="reader-page">
+        <p class="reader-title">Pride and Prejudice</p>
+        <p class="reader-text">
+          It is a truth <span class="word word-new" style="--strength: 45%">universally</span> <span class="word" style="--strength: 34%">acknowledged</span>, that a
+          single man in <span class="word" style="--strength: 18%">possession</span> of a good <span class="word" style="--strength: 8%">fortune</span>, must
+          be <span class="phrase">in want of</span> a wife.
+        </p>
+      </Tile>
+      <Tile cols={2} color="var(--tile-ochre)" title="EPUB · PDF · TXT" caption="Your own books, or free ones from Project Gutenberg" />
+      <Tile cols={2} color="var(--tile-brick)" title="Paged reading" caption="A page counts as read when you turn it" />
+      <Tile cols={4} color="var(--tile-teal)" title="Word panel" caption="How well you know a word, your notes, an offline English dictionary and every sentence you met it in" />
+    </TileGroup>
+
+    <TileGroup title="Words" id="words">
+      <Tile cols={4} rows={2} color="var(--tile-violet)" label="Map" caption="Lay words, notes, pictures and pen strokes out on endless boards">
+        <svg class="map-drawing" viewBox="0 0 360 110" aria-hidden="true">
+          <line class="map-link" x1="180" y1="55" x2="70" y2="25" />
+          <line class="map-link" x1="180" y1="55" x2="290" y2="28" />
+          <line class="map-link" x1="290" y1="28" x2="300" y2="88" />
+          <line class="map-link" x1="180" y1="55" x2="80" y2="90" />
+          <rect class="map-node" x="146" y="43" width="68" height="24" rx="4" />
+          <text x="180" y="60">errant</text>
+          <rect class="map-node" x="36" y="13" width="68" height="24" rx="4" />
+          <text x="70" y="30">wander</text>
+          <rect class="map-node" x="268" y="16" width="44" height="24" rx="4" />
+          <text x="290" y="33">err</text>
+          <rect class="map-node" x="272" y="76" width="56" height="24" rx="4" />
+          <text x="300" y="93">error</text>
+          <rect class="map-node" x="40" y="78" width="80" height="24" rx="4" />
+          <text x="80" y="95">wanderer</text>
+          <path class="map-pen" d="M138 40c18-14 70-14 86 0 12 12 4 30-20 34-24 4-58 2-70-10-6-6-4-16 6-22" />
+        </svg>
+      </Tile>
+      <Tile cols={2} rows={2} color="var(--tile-olive)" caption="known · 15 of 20">
+        <span class="term">acknowledged</span>
+        <span class="figure">75%</span>
+      </Tile>
+      <Tile cols={2} color="var(--tile-harbor)" label="Vocabulary · Phrases" caption="Every term you meet, with its counts" />
+      <Tile cols={2} color="var(--tile-terracotta)" title="Import word lists" caption="Typed, pasted or from TXT, CSV and TSV" />
+    </TileGroup>
+  </main>
+
+  <footer class="site-footer">
+    <span>© 2026 Buggy Laggy Limited</span>
+    <a href="https://buggylaggy.com">Made by Buggy Laggy</a>
+  </footer>
+</BaseLayout>

@@ -1,0 +1,152 @@
+/* Errant Ant Paper, the app's default scheme (ErrantAnt Resources/Tunables/Schemes/errantant-paper.json). */
+:root {
+  --vui-canvas: #faf9f6;
+  --vui-chrome: #f0efeb;
+  --vui-ink: #292b2d;
+  --vui-muted: #656966;
+  --vui-accent: #28654d;
+  --vui-font: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+
+  /* The app's cover and tile colors (Resources/Tunables/Defaults/shell.json). */
+  --tile-terracotta: #b0573a;
+  --tile-slate: #3e4a5c;
+  --tile-ochre: #a8812b;
+  --tile-plum: #6b3f5e;
+  --tile-cobalt: #1f5fbf;
+  --tile-brick: #a8322a;
+  --tile-teal: #0b7a75;
+  --tile-violet: #5b3fa8;
+  --tile-harbor: #3e5c76;
+  --tile-olive: #6b6f3a;
+  --page-surface: #ffffff;
+  --page-rule: #d9d7d0;
+
+  /* The reader's word colors: the hue at a strength per familiarity level, and the new-word azure. */
+  --word-hue: var(--vui-accent);
+  --new-word: #3fa9f5;
+}
+
+.tile-glyph {
+  width: calc(16 * var(--vui-u));
+  height: calc(16 * var(--vui-u));
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1.5;
+}
+
+.hero-text {
+  margin: calc(4 * var(--vui-u)) 0 0;
+  font-size: calc(13 * var(--vui-u));
+  line-height: 1.28;
+}
+
+.figure {
+  display: block;
+  font-size: calc(24 * var(--vui-u));
+  line-height: 1.1;
+}
+
+.term {
+  display: block;
+  font-size: calc(12 * var(--vui-u));
+  line-height: 1.3;
+}
+
+/* A page of the reader on a paper tile. */
+.reader-page {
+  color: var(--vui-ink);
+  --vui-tile-color: var(--page-surface);
+  box-shadow: inset 0 0 0 1px var(--page-rule);
+}
+
+.reader-title {
+  margin: 0 0 calc(5 * var(--vui-u));
+  color: var(--vui-muted);
+  font-size: calc(7 * var(--vui-u));
+}
+
+.reader-text {
+  margin: 0;
+  font-size: calc(10 * var(--vui-u));
+  line-height: 1.75;
+}
+
+.word {
+  padding: 0.1em 0.12em;
+  border-radius: calc(2 * var(--vui-u));
+  background: color-mix(in srgb, var(--word-hue) var(--strength), transparent);
+}
+
+.word-new {
+  background: color-mix(in srgb, var(--new-word) var(--strength), transparent);
+}
+
+.phrase {
+  text-decoration: underline 2px color-mix(in srgb, var(--word-hue) 70%, transparent);
+  text-underline-offset: 0.3em;
+}
+
+.map-drawing {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-drawing text {
+  fill: currentColor;
+  font-size: 13px;
+  text-anchor: middle;
+}
+
+.map-node {
+  fill: rgb(255 255 255 / 0.16);
+  stroke: rgb(255 255 255 / 0.7);
+}
+
+.map-link {
+  stroke: rgb(255 255 255 / 0.55);
+}
+
+.map-pen {
+  fill: none;
+  stroke: #f4d35e;
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+
+/* The Coming soon notice: a bar drawn like the top one that rises from the bottom edge and sinks again. */
+.notice {
+  position: fixed;
+  top: auto;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  font-size: calc(9 * var(--vui-u));
+  transform: translateY(100%);
+  transition: transform 420ms cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.notice-shown {
+  transform: none;
+}
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: calc(6 * var(--vui-u)) calc(18 * var(--vui-u));
+  padding: 0 var(--vui-page-x) calc(18 * var(--vui-u));
+  color: var(--vui-muted);
+  font-size: calc(7.5 * var(--vui-u));
+}
+
+.site-footer a {
+  color: inherit;
+}
+
+.site-footer a:hover {
+  color: var(--vui-ink);
+}

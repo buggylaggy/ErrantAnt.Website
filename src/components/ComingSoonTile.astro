@@ -1,0 +1,25 @@
+---
+import Tile from "vui-web/Tile.astro";
+
+/**
+ * The page's call to action: a leaf tile-button whose click raises a bottom bar saying Errant Ant is not out yet. The bar
+ * sinks again after 3 s; another click starts the wait over.
+ */
+---
+<Tile cols={2} rows={2} color="var(--vui-accent)" title="Coming soon" caption="macOS · Windows · Linux" button class="coming-soon">
+  <svg class="tile-glyph" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v5l3.5 2" />
+  </svg>
+</Tile>
+<p class="notice vui-bar" role="status">Errant Ant isn't out yet — it's coming to macOS, Windows and Linux.</p>
+
+<script>
+  const notice = document.querySelector<HTMLElement>(".notice")!;
+  let hide: number | undefined;
+  document.querySelector(".coming-soon")!.addEventListener("click", () => {
+    notice.classList.add("notice-shown");
+    window.clearTimeout(hide);
+    hide = window.setTimeout(() => notice.classList.remove("notice-shown"), 3000);
+  });
+</script>

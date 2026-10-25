@@ -1,0 +1,16 @@
+{
+  "name": "errant-ant-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^7.4.2",
+    "vui-web": "file:packages/vui-web-0.1.0.tgz"
+  }
+}
