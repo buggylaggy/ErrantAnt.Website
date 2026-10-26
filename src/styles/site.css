@@ -26,6 +26,14 @@
   --new-word: #3fa9f5;
 }
 
+/* Above phone width the six-column screenshot group, Coming soon and Reading (952 units) share the first row from
+   about 1440 px. */
+@media (min-width: 561px) {
+  :root {
+    --vui-cell: clamp(72px, 5.45vw, 120px);
+  }
+}
+
 .tile-glyph {
   width: calc(16 * var(--vui-u));
   height: calc(16 * var(--vui-u));
@@ -124,6 +132,7 @@
   bottom: 0;
   left: 0;
   margin: 0;
+  background: var(--vui-chrome);
   font-size: calc(9 * var(--vui-u));
   transform: translateY(100%);
   transition: transform 420ms cubic-bezier(0.2, 0.9, 0.3, 1);

@@ -11,6 +11,6 @@
   },
   "dependencies": {
     "astro": "^7.4.2",
-    "vui-web": "file:packages/vui-web-0.1.0.tgz"
+    "vui-web": "file:packages/vui-web-0.2.0.tgz"
   }
 }

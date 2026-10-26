@@ -1,16 +1,25 @@
 ---
-import GridBackdrop from "vui-web/GridBackdrop.astro";
+import PageBackdrop from "vui-web/PageBackdrop.astro";
+import PictureRoll from "vui-web/PictureRoll.astro";
 import Tile from "vui-web/Tile.astro";
 import TileGroup from "vui-web/TileGroup.astro";
+import TileWall from "vui-web/TileWall.astro";
 import TopBar from "vui-web/TopBar.astro";
 import ComingSoonTile from "../components/ComingSoonTile.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 // The app's own description of itself (Settings, About).
 const about = "A reader for language learners that counts each word you meet and keeps the sentences you met it in.";
+// Screenshots of the app, each tinted with its own bar's color.
+const screenshots = [
+  { src: "/screenshots/start-page.webp", alt: "The Errant Ant start page: tiles for the book in progress, Vocabulary, Map, a pinned board and a pinned word", caption: "Start page", tint: "#f0efeb" },
+  { src: "/screenshots/library.webp", alt: "The Library: a wall of book tiles with their covers", caption: "Library", tint: "#e2c9c4" },
+  { src: "/screenshots/vocabulary.webp", alt: "Vocabulary: every word with its language and how well it is known", caption: "Vocabulary", tint: "#c2d7d3" },
+  { src: "/screenshots/map.webp", alt: "The Map: words linked around their roots, with pen strokes", caption: "Map", tint: "#d1cadc" }
+];
 ---
 <BaseLayout title="Errant Ant — coming soon" description={about}>
-  <GridBackdrop />
+  <PageBackdrop />
   <TopBar>
     <h1 class="vui-bar-brand" slot="brand">Errant Ant</h1>
     <a href="#coming-soon">Coming soon</a>
@@ -18,16 +27,21 @@ const about = "A reader for language learners that counts each word you meet and
     <a href="#words">Words</a>
   </TopBar>
 
-  <main class="vui-groups">
+  <TileWall>
+    <TileGroup title="A look inside" id="look-inside" columns={6}>
+      <PictureRoll cols={6} rows={4} color="var(--tile-slate)" pictures={screenshots} interval={5000} />
+    </TileGroup>
+
     <TileGroup title="Coming soon" id="coming-soon">
-      <Tile cols={4} rows={2} color="var(--tile-slate)" label="For language learners">
+      <Tile cols={4} rows={2} color="var(--tile-slate)" label="For language learners" backLabel="No ratings to keep">
         <p class="hero-text">{about}</p>
+        <p slot="back" class="hero-text">It counts how often you meet each word and phrase and how often you look it up, and colors words by how well you know them.</p>
       </Tile>
       <ComingSoonTile />
-      <Tile cols={2} color="var(--tile-cobalt)" caption="UI languages">
+      <Tile cols={2} color="var(--tile-cobalt)" caption="UI languages" backLabel="UI languages" backCaption="From English and Deutsch to 日本語 and 繁體中文">
         <span class="figure">12</span>
       </Tile>
-      <Tile cols={2} color="var(--tile-plum)" title="Local-first" caption="No account; your library stays on your computer" />
+      <Tile cols={2} color="var(--tile-plum)" title="Local-first" caption="No account; your library stays on your computer" backLabel="Works offline" backCaption="The English dictionary ships with the app" />
     </TileGroup>
 
     <TileGroup title="Reading" id="reading">
@@ -39,13 +53,13 @@ const about = "A reader for language learners that counts each word you meet and
           be <span class="phrase">in want of</span> a wife.
         </p>
       </Tile>
-      <Tile cols={2} color="var(--tile-ochre)" title="EPUB · PDF · TXT" caption="Your own books, or free ones from Project Gutenberg" />
-      <Tile cols={2} color="var(--tile-brick)" title="Paged reading" caption="A page counts as read when you turn it" />
-      <Tile cols={4} color="var(--tile-teal)" title="Word panel" caption="How well you know a word, your notes, an offline English dictionary and every sentence you met it in" />
+      <Tile cols={2} color="var(--tile-ochre)" title="EPUB · PDF · TXT" caption="Your own books, or free ones from Project Gutenberg" backLabel="PDF" backCaption="Text-based PDFs are rebuilt into reflowing text" />
+      <Tile cols={2} color="var(--tile-brick)" title="Paged reading" caption="A page counts as read when you turn it" backLabel="Turning pages" backCaption="→, Space, or a click in the margin" />
+      <Tile cols={4} color="var(--tile-teal)" title="Word panel" caption="How well you know a word, your notes, an offline English dictionary and every sentence you met it in" backLabel="Keep for reading" backCaption="Makes a group of words a unit of its own in later reading" />
     </TileGroup>
 
     <TileGroup title="Words" id="words">
-      <Tile cols={4} rows={2} color="var(--tile-violet)" label="Map" caption="Lay words, notes, pictures and pen strokes out on endless boards">
+      <Tile cols={4} rows={2} color="var(--tile-violet)" label="Map" caption="Lay words, notes, pictures and pen strokes out on endless boards" backLabel="Map" backCaption="linked terms">
         <svg class="map-drawing" viewBox="0 0 360 110" aria-hidden="true">
           <line class="map-link" x1="180" y1="55" x2="70" y2="25" />
           <line class="map-link" x1="180" y1="55" x2="290" y2="28" />
@@ -63,15 +77,17 @@ const about = "A reader for language learners that counts each word you meet and
           <text x="80" y="95">wanderer</text>
           <path class="map-pen" d="M138 40c18-14 70-14 86 0 12 12 4 30-20 34-24 4-58 2-70-10-6-6-4-16 6-22" />
         </svg>
+        <span slot="back" class="figure">5</span>
       </Tile>
-      <Tile cols={2} rows={2} color="var(--tile-olive)" caption="known · 15 of 20">
+      <Tile cols={2} rows={2} color="var(--tile-olive)" caption="known · 15 of 20" backLabel="Last lookup" backCaption="Pride and Prejudice">
         <span class="term">acknowledged</span>
         <span class="figure">75%</span>
+        <span slot="back" class="term">possession</span>
       </Tile>
-      <Tile cols={2} color="var(--tile-harbor)" label="Vocabulary · Phrases" caption="Every term you meet, with its counts" />
-      <Tile cols={2} color="var(--tile-terracotta)" title="Import word lists" caption="Typed, pasted or from TXT, CSV and TSV" />
+      <Tile cols={2} color="var(--tile-harbor)" label="Vocabulary · Phrases" caption="Every term you meet, with its counts" backLabel="Find any term" backCaption="Search, filter by language, sort by least known" />
+      <Tile cols={2} color="var(--tile-terracotta)" title="Import word lists" caption="Typed, pasted or from TXT, CSV and TSV" backLabel="Import" backCaption="Import them as words or as phrases" />
     </TileGroup>
-  </main>
+  </TileWall>
 
   <footer class="site-footer">
     <span>© 2026 Buggy Laggy Limited</span>
