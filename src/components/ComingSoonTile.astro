@@ -2,17 +2,14 @@
 import Tile from "vui-web/Tile.astro";
 
 /**
- * The page's call to action: a leaf tile-button whose click raises a bottom bar saying Errant Ant is not out yet. The bar
- * sinks again after 3 s; another click starts the wait over.
+ * The page's call to action: a leaf tile-button with the app icon's mascot whose click raises a bottom bar saying
+ * Errant Ant is not out yet. The bar sinks again after 3 s; another click starts the wait over.
  */
 ---
-<Tile cols={2} rows={2} color="var(--vui-accent)" title="Coming soon" caption="macOS · Windows · Linux" button class="coming-soon">
-  <svg class="tile-glyph" viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="12" cy="12" r="9" />
-    <path d="M12 7v5l3.5 2" />
-  </svg>
+<Tile cols={2} rows={2} color="var(--vui-accent)" title="Coming soon" caption="Windows · Linux" button class="coming-soon">
+  <img class="tile-mascot" src="/brand/mascot.webp" alt="" width="512" height="512" decoding="async" />
 </Tile>
-<p class="notice vui-bar" role="status">Errant Ant isn't out yet — it's coming to macOS, Windows and Linux.</p>
+<p class="notice vui-bar" role="status">Errant Ant isn't out yet — it's coming to Steam in Early Access for Windows and Linux, with macOS to follow.</p>
 
 <script>
   const notice = document.querySelector<HTMLElement>(".notice")!;

@@ -1,30 +1,90 @@
-/* Errant Ant Paper, the app's default scheme (ErrantAnt Resources/Tunables/Schemes/errantant-paper.json). */
+/* Errant Ant's library art (the Steam library hero): its cream page, its blue and its tile colors, so the home page's
+   banner meets the page without a seam. Ink and type stay the app's Paper scheme. */
 :root {
-  --vui-canvas: #faf9f6;
-  --vui-chrome: #f0efeb;
+  --vui-canvas: #fff7ec;
+  --vui-chrome: #f6ecdf;
   --vui-ink: #292b2d;
-  --vui-muted: #656966;
-  --vui-accent: #28654d;
+  --vui-muted: #6b665e;
+  --vui-accent: var(--tile-blue);
   --vui-font: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
 
-  /* The app's cover and tile colors (Resources/Tunables/Defaults/shell.json). */
-  --tile-terracotta: #b0573a;
-  --tile-slate: #3e4a5c;
-  --tile-ochre: #a8812b;
-  --tile-plum: #6b3f5e;
-  --tile-cobalt: #1f5fbf;
-  --tile-brick: #a8322a;
-  --tile-teal: #0b7a75;
-  --tile-violet: #5b3fa8;
-  --tile-harbor: #3e5c76;
-  --tile-steel: #4a5568;
-  --tile-olive: #6b6f3a;
+  --tile-blue: #2f6ac3;
+  --tile-navy: #2a3042;
+  --tile-slate: #576172;
+  --tile-steel: #4c687f;
+  --tile-teal: #1c837e;
+  --tile-violet: #674dad;
+  --tile-red: #ae4038;
+  --tile-olive: #757947;
+  --tile-ochre: #926611;
   --page-surface: #ffffff;
-  --page-rule: #d9d7d0;
+  --page-rule: #e6dccf;
 
-  /* The reader's word colors: the hue at a strength per familiarity level, and the new-word azure. */
-  --word-hue: var(--vui-accent);
+  /* The reader's word colors, as in the app's Paper scheme: its green at a strength per familiarity level, and the
+     new-word azure. */
+  --word-hue: #28654d;
   --new-word: #3fa9f5;
+}
+
+/* The banner: a box that the art covers around its center, at the art's shape while the window is wide enough and
+   cropped at the sides below 280 px of height or top and bottom above 64% of the window's height. The stage carries
+   the art's coordinates, so the logo stays on the art's blue center tile (x 1511–2330, y 378–1028 of 3840 × 1240). */
+.banner {
+  --banner-height: clamp(280px, 100vw * 1240 / 3840, 64svh);
+  position: relative;
+  height: var(--banner-height);
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, #000 78%, transparent);
+  transition: opacity 360ms ease, translate 480ms cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.banner-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, var(--banner-height) * 3840 / 1240);
+  aspect-ratio: 3840 / 1240;
+  translate: -50% -50%;
+}
+
+.banner-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.banner-logo {
+  position: absolute;
+  top: 53.5%;
+  left: 50%;
+  height: 62%;
+  aspect-ratio: 853 / 720;
+  margin: 0;
+  translate: -50% -50%;
+  transition: scale 640ms cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+
+.banner-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* It comes in with the home page, the logo popping up on its tile, and goes while the bar shows another page. */
+@starting-style {
+  .banner {
+    opacity: 0;
+    translate: 0 calc(-12 * var(--vui-u));
+  }
+
+  .banner-logo {
+    scale: 0.86;
+  }
+}
+
+body:has(.vui-pivot-sub) .banner {
+  opacity: 0;
+  translate: 0 calc(-12 * var(--vui-u));
 }
 
 /* The big screenshot tile: the screenshots' shape, their top kept in view when the first screen cuts them, and
@@ -41,13 +101,14 @@
   font-size: calc(11 * var(--vui-u));
 }
 
-.tile-glyph {
-  width: calc(16 * var(--vui-u));
-  height: calc(16 * var(--vui-u));
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-width: 1.5;
+/* The app icon's mascot on the Coming soon tile, as on the art's blue tile. */
+.tile-mascot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: 104%;
+  translate: -50% -50%;
 }
 
 .hero-text {
@@ -201,4 +262,13 @@
 
 .site-footer a:hover {
   color: var(--vui-ink);
+}
+
+.site-legal {
+  flex-basis: 100%;
+  max-width: 60em;
+  margin: 0;
+  font-size: calc(6.5 * var(--vui-u));
+  line-height: 1.5;
+  opacity: 0.8;
 }

@@ -3,6 +3,7 @@ import Page from "vui-web/Page.astro";
 import PageBackdrop from "vui-web/PageBackdrop.astro";
 import Pages from "vui-web/Pages.astro";
 import TopBar from "vui-web/TopBar.astro";
+import Banner from "../components/Banner.astro";
 import HomeWall from "../components/HomeWall.astro";
 import PrivacyPolicy from "../components/PrivacyPolicy.astro";
 import BaseLayout from "./BaseLayout.astro";
@@ -27,7 +28,8 @@ const items = [
   { label: "Coming soon", href: "/#coming-soon" },
   { label: "Reading", href: "/#reading" },
   { label: "Words", href: "/#words" },
-  { label: "Privacy policy", href: "/privacy/", page: "privacy", accent: "#4a5568" }
+  { label: "Early Access", href: "/#early-access" },
+  { label: "Privacy policy", href: "/privacy/", page: "privacy", accent: "#4c687f" }
 ];
 ---
 <BaseLayout title={pages[page].title} description={pages[page].description}>
@@ -35,6 +37,7 @@ const items = [
   <TopBar items={items} current={page} />
   <Pages>
     <Page id="home" title={pages.home.title} current={page === "home"} grid>
+      <Banner />
       <HomeWall about={about} />
     </Page>
     <Page id="privacy" title={pages.privacy.title} current={page === "privacy"}>
@@ -45,5 +48,9 @@ const items = [
   <footer class="site-footer">
     <span>© 2026 Buggy Laggy Limited</span>
     <a href="https://buggylaggy.com">Made by Buggy Laggy</a>
+    <p class="site-legal">
+      Project Gutenberg is a registered trademark of the Project Gutenberg Literary Archive Foundation, and Wiktionary is
+      a trademark of the Wikimedia Foundation; neither is affiliated with or endorses Errant Ant.
+    </p>
   </footer>
 </BaseLayout>

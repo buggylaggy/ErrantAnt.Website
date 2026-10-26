@@ -10,9 +10,20 @@ const { title, description } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#FAF9F6" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f6ecdf" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>{title}</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Errant Ant" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:image" content={new URL("/social.png", Astro.site)} />
+    <meta property="og:image:width" content="1232" />
+    <meta property="og:image:height" content="706" />
+    <meta property="og:image:alt" content="Errant Ant: the mascot reading a book beside tiles of the app" />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body><slot /></body>
 </html>
