@@ -1,0 +1,86 @@
+---
+import PictureRoll from "vui-web/PictureRoll.astro";
+import Tile from "vui-web/Tile.astro";
+import TileGroup from "vui-web/TileGroup.astro";
+import TileWall from "vui-web/TileWall.astro";
+import ComingSoonTile from "./ComingSoonTile.astro";
+
+/** The start page: the screenshot tile, then Errant Ant's tiles, in the app's start page style. */
+interface Props {
+  about: string;
+}
+
+const { about } = Astro.props;
+// Screenshots of the app, each tinted with its own bar's color.
+const screenshots = [
+  { src: "/screenshots/start-page.webp", alt: "The Errant Ant start page: tiles for the book in progress, Vocabulary, Map, a pinned board and a pinned word", caption: "Start page", tint: "#f0efeb" },
+  { src: "/screenshots/library.webp", alt: "The Library: a wall of book tiles with their covers", caption: "Library", tint: "#e2c9c4" },
+  { src: "/screenshots/vocabulary.webp", alt: "Vocabulary: every word with its language and how well it is known", caption: "Vocabulary", tint: "#c2d7d3" },
+  { src: "/screenshots/map.webp", alt: "The Map: words linked around their roots, with pen strokes", caption: "Map", tint: "#d1cadc" }
+];
+---
+<TileWall>
+  <TileGroup title="A look inside" id="look-inside" full>
+    <PictureRoll color="var(--tile-slate)" pictures={screenshots} interval={5000} curtain class="look-inside" />
+  </TileGroup>
+
+  <TileGroup title="Coming soon" id="coming-soon">
+    <Tile cols={4} rows={2} color="var(--tile-slate)" label="For language learners" backLabel="No ratings to keep">
+      <p class="hero-text">{about}</p>
+      <p slot="back" class="hero-text">It counts how often you meet each word and phrase and how often you look it up, and colors words by how well you know them.</p>
+    </Tile>
+    <ComingSoonTile />
+    <Tile cols={2} color="var(--tile-cobalt)" caption="UI languages" backLabel="UI languages" backCaption="From English and Deutsch to 日本語 and 繁體中文">
+      <span class="figure">12</span>
+    </Tile>
+    <Tile cols={2} color="var(--tile-plum)" title="Local-first" caption="No account; your library stays on your computer" backLabel="Offline dictionaries" backCaption="For every learning language, downloaded once when you turn one on" />
+  </TileGroup>
+
+  <TileGroup title="Reading" id="reading">
+    <Tile cols={4} rows={2} class="reader-page">
+      <p class="reader-title">Pride and Prejudice</p>
+      <p class="reader-text">
+        It is a truth <span class="word word-new" style="--strength: 45%">universally</span> <span class="word" style="--strength: 34%">acknowledged</span>, that a
+        single man in <span class="word" style="--strength: 18%">possession</span> of a good <span class="word" style="--strength: 8%">fortune</span>, must
+        be <span class="phrase">in want of</span> a wife.
+      </p>
+    </Tile>
+    <Tile cols={2} color="var(--tile-ochre)" title="EPUB · PDF · TXT" caption="Your own books, or free ones from Project Gutenberg" backLabel="PDF" backCaption="Text-based PDFs are rebuilt into reflowing text" />
+    <Tile cols={2} color="var(--tile-brick)" title="Paged reading" caption="A page counts as read when you turn it" backLabel="Turning pages" backCaption="→, Space, or a click in the margin" />
+    <Tile cols={4} color="var(--tile-teal)" title="Word panel" caption="How well you know a word, your own meaning, the dictionaries you turned on and every sentence you met it in" backLabel="Keep for reading" backCaption="Makes a group of words a unit of its own in later reading" />
+  </TileGroup>
+
+  <TileGroup title="Words" id="words">
+    <Tile cols={4} rows={2} color="var(--tile-violet)" label="Map" caption="Lay words, notes, pictures and pen strokes out on endless boards" backLabel="Map" backCaption="linked terms">
+      <svg class="map-drawing" viewBox="0 0 360 110" aria-hidden="true">
+        <line class="map-link" x1="180" y1="55" x2="70" y2="25" />
+        <line class="map-link" x1="180" y1="55" x2="290" y2="28" />
+        <line class="map-link" x1="290" y1="28" x2="300" y2="88" />
+        <line class="map-link" x1="180" y1="55" x2="80" y2="90" />
+        <rect class="map-node" x="146" y="43" width="68" height="24" rx="4" />
+        <text x="180" y="60">errant</text>
+        <rect class="map-node" x="36" y="13" width="68" height="24" rx="4" />
+        <text x="70" y="30">wander</text>
+        <rect class="map-node" x="268" y="16" width="44" height="24" rx="4" />
+        <text x="290" y="33">err</text>
+        <rect class="map-node" x="272" y="76" width="56" height="24" rx="4" />
+        <text x="300" y="93">error</text>
+        <rect class="map-node" x="40" y="78" width="80" height="24" rx="4" />
+        <text x="80" y="95">wanderer</text>
+        <path class="map-pen" d="M138 40c18-14 70-14 86 0 12 12 4 30-20 34-24 4-58 2-70-10-6-6-4-16 6-22" />
+      </svg>
+      <span slot="back" class="figure">5</span>
+    </Tile>
+    <Tile cols={2} rows={2} color="var(--tile-olive)" caption="known · 15 of 20" backLabel="Last lookup" backCaption="Pride and Prejudice">
+      <span class="term">acknowledged</span>
+      <span class="figure">75%</span>
+      <span slot="back" class="term">possession</span>
+    </Tile>
+    <Tile cols={2} color="var(--tile-harbor)" label="Vocabulary · Phrases" caption="Every term you meet, with its counts" backLabel="Find any term" backCaption="Search, filter by language, sort by least known" />
+    <Tile cols={2} color="var(--tile-terracotta)" title="Import word lists" caption="Typed, pasted or from TXT, CSV and TSV" backLabel="Import" backCaption="Import them as words or as phrases" />
+  </TileGroup>
+
+  <TileGroup title="About" id="about">
+    <Tile cols={2} color="var(--tile-steel)" title="Privacy policy" caption="No cookies, no tracking; your data stays with you" href="/privacy/" data-vui-page="privacy" />
+  </TileGroup>
+</TileWall>

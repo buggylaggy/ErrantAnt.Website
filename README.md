@@ -1,9 +1,10 @@
 # ErrantAnt.Website
 
-The website of Errant Ant at errantant.com: one page in the style of the app's start page, with a Coming soon button.
-It is an Astro static site; its top bar, tiles, motion and backdrop come from the shared `vui-web` package
-(`/home/yuki/project/VUI.Web`), pinned in `packages/`. The app screenshots shown in the first group are WebP files in
-`public/screenshots/`.
+The website of Errant Ant at errantant.com: a start page in the style of the app's, with a Coming soon button, and a
+privacy policy at `/privacy/`. It is an Astro static site; its top bar, pages, tiles, motion and backdrop come from
+the shared `vui-web` package (`/home/yuki/project/VUI.Web`), pinned in `packages/`. Both page files render the whole
+site from `src/layouts/SitePage.astro` with their own page on show, so moving between them animates in place while
+each file still works on its own. The app screenshots in the first group are WebP files in `public/screenshots/`.
 
 ## Local development
 
@@ -24,7 +25,7 @@ npm run preview
 Pack the new version in the VUI.Web repository, copy the tarball into `packages/`, then install it by its file name:
 
 ```bash
-npm install vui-web@file:packages/vui-web-0.3.0.tgz
+npm install vui-web@file:packages/vui-web-0.4.0.tgz
 ```
 
 Remove the previous tarball once nothing depends on it.

@@ -1,0 +1,49 @@
+---
+import Page from "vui-web/Page.astro";
+import PageBackdrop from "vui-web/PageBackdrop.astro";
+import Pages from "vui-web/Pages.astro";
+import TopBar from "vui-web/TopBar.astro";
+import HomeWall from "../components/HomeWall.astro";
+import PrivacyPolicy from "../components/PrivacyPolicy.astro";
+import BaseLayout from "./BaseLayout.astro";
+
+/**
+ * The whole site, with `page` on show: every page file renders both pages, so the pivot can move between them in place
+ * and each file still works on its own without script.
+ */
+interface Props {
+  page: "home" | "privacy";
+}
+
+const { page } = Astro.props;
+// The app's own description of itself (Settings, About).
+const about = "A reader for language learners that counts each word you meet and keeps the sentences you met it in.";
+const pages = {
+  home: { title: "Errant Ant — coming soon", description: about },
+  privacy: { title: "Privacy policy — Errant Ant", description: "How the Errant Ant website and app handle your data: no cookies, no tracking, and your library stays on your computer." }
+};
+const items = [
+  { label: "Errant Ant", href: "/", page: "home" },
+  { label: "Coming soon", href: "/#coming-soon" },
+  { label: "Reading", href: "/#reading" },
+  { label: "Words", href: "/#words" },
+  { label: "Privacy policy", href: "/privacy/", page: "privacy", accent: "#4a5568" }
+];
+---
+<BaseLayout title={pages[page].title} description={pages[page].description}>
+  <PageBackdrop />
+  <TopBar items={items} current={page} />
+  <Pages>
+    <Page id="home" title={pages.home.title} current={page === "home"} grid>
+      <HomeWall about={about} />
+    </Page>
+    <Page id="privacy" title={pages.privacy.title} current={page === "privacy"}>
+      <PrivacyPolicy />
+    </Page>
+  </Pages>
+
+  <footer class="site-footer">
+    <span>© 2026 Buggy Laggy Limited</span>
+    <a href="https://buggylaggy.com">Made by Buggy Laggy</a>
+  </footer>
+</BaseLayout>

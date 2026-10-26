@@ -17,6 +17,7 @@
   --tile-teal: #0b7a75;
   --tile-violet: #5b3fa8;
   --tile-harbor: #3e5c76;
+  --tile-steel: #4a5568;
   --tile-olive: #6b6f3a;
   --page-surface: #ffffff;
   --page-rule: #d9d7d0;
@@ -26,12 +27,18 @@
   --new-word: #3fa9f5;
 }
 
-/* Above phone width the six-column screenshot group, Coming soon and Reading (952 units) share the first row from
-   about 1440 px. */
-@media (min-width: 561px) {
-  :root {
-    --vui-cell: clamp(72px, 5.45vw, 120px);
-  }
+/* The big screenshot tile: the screenshots' shape, their top kept in view when the first screen cuts them, and
+   captions at the tile title size. */
+.look-inside {
+  --vui-aspect: 1606 / 1060;
+}
+
+.look-inside .vui-tile-picture {
+  object-position: top;
+}
+
+.look-inside .vui-tile-chip {
+  font-size: calc(11 * var(--vui-u));
 }
 
 .tile-glyph {
@@ -140,6 +147,42 @@
 
 .notice-shown {
   transform: none;
+}
+
+/* The privacy policy: a reading column at the page's edge. */
+.policy {
+  box-sizing: border-box;
+  max-width: calc(44em + 2 * var(--vui-page-x));
+  padding: calc(14 * var(--vui-u)) var(--vui-page-x) calc(30 * var(--vui-u));
+  font-size: max(16px, calc(10.5 * var(--vui-u)));
+  line-height: 1.6;
+}
+
+.policy h2 {
+  margin: 1.6em 0 0.4em;
+  font-size: 1.3em;
+  font-weight: 400;
+}
+
+.policy p,
+.policy ul {
+  margin: 0 0 0.8em;
+}
+
+.policy ul {
+  padding-left: 1.2em;
+}
+
+.policy li + li {
+  margin-top: 0.4em;
+}
+
+.policy a {
+  color: var(--vui-accent);
+}
+
+.policy-date {
+  color: var(--vui-muted);
 }
 
 .site-footer {
