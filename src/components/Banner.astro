@@ -1,15 +1,145 @@
 ---
+import Tile from "vui-web/Tile.astro";
+import TileArt, { type Art } from "./TileArt.astro";
+
 /**
- * The home page's banner: the library hero art across the page with the Errant Ant logo standing on its big blue center
- * tile. The art covers the banner around its center, like a picture with `object-fit: cover`, while the logo keeps its
- * place on the art; the banner fades in with the home page and out when the bar moves to another page.
+ * The home page's banner: the Steam library art's tile wall as real tiles, at the art's cells in its five groups, with
+ * the art's drawings and the Errant Ant logo on the big blue tile. Each tile opens the screenshot tile below. They sit
+ * in the home page's tile wall, so they turn in, grow, push and press with its other tiles.
  */
+interface BannerTile {
+  at: [col: number, row: number];
+  size: [cols: number, rows: number];
+  color: string;
+  art: Art;
+}
+
+// A tile in one of the site's tile colors, or white as a page.
+const tile = (at: BannerTile["at"], size: BannerTile["size"], color: string, art: Art): BannerTile => ({
+  at,
+  size,
+  color: color === "white" ? "var(--page-surface)" : `var(--tile-${color})`,
+  art
+});
+const icon = (name: Extract<Art, { kind: "icon" }>["icon"]): Art => ({ kind: "icon", icon: name });
+const map: Art = { kind: "map" };
+const progress = (value: number): Art => ({ kind: "progress", value });
+
+// The art's text bars, row by row: each bar's x and width, and its highlight's strength.
+const reader: Art = {
+  kind: "text",
+  bar: 13,
+  pad: [6, 9],
+  rows: [
+    [54, [[34, 37], [95, 90, 2], [209, 53], [286, 115], [424, 54, 3], [502, 36], [562, 53]]],
+    [96, [[34, 141], [198, 91, 3], [312, 37, 1], [373, 70, 1], [466, 91], [580, 37, 2]]],
+    [137, [[34, 91], [148, 116, 2], [288, 53], [364, 54, 1], [441, 37, 3], [502, 90]]],
+    [179, [[34, 54], [111, 141], [275, 70], [368, 54], [445, 70], [538, 71]]],
+    [220, [[34, 91], [148, 70], [242, 141], [406, 70], [499, 116]]],
+    [262, [[34, 116], [173, 71, 2], [267, 37], [327, 68]]]
+  ]
+};
+const column: Art = {
+  kind: "text",
+  bar: 23,
+  pad: [8, 13],
+  rows: [
+    [69, [[34, 152], [224, 58]]],
+    [138, [[34, 90], [162, 117, 2]]],
+    [207, [[34, 193, 2]]],
+    [277, [[34, 235]]],
+    [346, [[34, 235]]],
+    [415, [[34, 153]]]
+  ]
+};
+const notes: Art = {
+  kind: "text",
+  bar: 20,
+  pad: [0, 0],
+  rows: [
+    [65, [[34, 136], [205, 77]]],
+    [127, [[34, 80], [149, 105]]],
+    [189, [[34, 211]]],
+    [251, [[34, 154]]]
+  ]
+};
+
+const groups: { columns: number; tiles: BannerTile[] }[] = [
+  {
+    columns: 4,
+    tiles: [
+      tile([0, 0], [2, 2], "violet", map),
+      tile([2, 0], [1, 1], "slate", icon("plus")),
+      tile([3, 0], [1, 1], "olive", icon("settings")),
+      tile([2, 1], [2, 2], "red", progress(0.35)),
+      tile([1, 2], [1, 1], "steel", icon("list"))
+    ]
+  },
+  {
+    columns: 4,
+    tiles: [
+      tile([0, 0], [4, 2], "white", reader),
+      tile([0, 2], [2, 2], "blue", { kind: "book", cover: "red", bars: [[29, 25, 190, 20, 0.95], [29, 56, 113, 20, 0.95]], at: [22, 151] }),
+      tile([2, 2], [2, 2], "teal", progress(0.69)),
+      tile([3, 4], [1, 1], "red", icon("bookshelf"))
+    ]
+  },
+  {
+    columns: 5,
+    tiles: [
+      tile([0, 0], [1, 1], "teal", icon("language")),
+      tile([4, 0], [1, 1], "violet", icon("grid")),
+      tile([0, 2], [5, 4], "blue", { kind: "logo" }),
+      tile([0, 6], [1, 1], "teal", icon("language")),
+      tile([1, 6], [1, 1], "violet", icon("grid")),
+      tile([2, 6], [1, 1], "red", icon("bookshelf")),
+      tile([3, 6], [1, 1], "steel", icon("list")),
+      tile([4, 6], [1, 1], "olive", icon("settings"))
+    ]
+  },
+  {
+    columns: 4,
+    tiles: [
+      tile([0, 0], [2, 2], "teal", progress(0.55)),
+      tile([2, 0], [2, 2], "violet", map),
+      tile([0, 2], [4, 3], "navy", {
+        kind: "book",
+        cover: "green",
+        bars: [[30, 31, 175, 11, 0.78], [30, 71, 339, 24, 0.95], [30, 111, 197, 24, 0.95], [30, 156, 152, 13, 0.6]],
+        at: [22, 243],
+        scale: 1.525
+      }),
+      tile([0, 5], [2, 2], "white", notes),
+      tile([2, 5], [1, 1], "olive", icon("settings")),
+      tile([3, 5], [1, 1], "steel", icon("list")),
+      tile([2, 6], [2, 1], "red", progress(0.2))
+    ]
+  },
+  {
+    columns: 4,
+    tiles: [
+      tile([0, 0], [4, 2], "blue", { kind: "book", cover: "navy", bars: [[29, 25, 283, 20, 0.95], [29, 56, 170, 20, 0.95]], at: [22, 151] }),
+      tile([0, 2], [1, 1], "red", icon("bookshelf")),
+      tile([1, 2], [1, 1], "slate", icon("plus")),
+      tile([2, 2], [2, 3], "white", column),
+      tile([0, 3], [2, 2], "violet", map),
+      tile([0, 5], [2, 1], "teal", progress(0.85)),
+      tile([2, 5], [1, 1], "ochre", icon("language"))
+    ]
+  }
+];
 ---
 <div class="banner">
-  <div class="banner-stage">
-    <img class="banner-art" src="/brand/hero.webp" alt="" width="3840" height="1240" decoding="async" fetchpriority="high" />
-    <h1 class="banner-logo">
-      <img src="/brand/logo.webp" alt="Errant Ant" width="853" height="720" decoding="async" />
-    </h1>
+  <div class="banner-wall">
+    {groups.map((group) => (
+      <div class="vui-group-tiles" style={`--vui-group-columns: ${group.columns};`}>
+        {group.tiles.map(({ at: [col, row], size: [cols, rows], color, art }) => (
+          // The style replaces Tile's own, so it carries the tile's color along with its cell.
+          <Tile cols={cols} rows={rows} href="#look-inside" style={`--vui-tile-color: ${color}; grid-area: ${row + 1} / ${col + 1} / span ${rows} / span ${cols};`}>
+            <TileArt cols={cols} rows={rows} art={art} />
+          </Tile>
+        ))}
+      </div>
+    ))}
   </div>
 </div>

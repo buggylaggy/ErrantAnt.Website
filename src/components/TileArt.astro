@@ -1,0 +1,119 @@
+---
+/**
+ * The drawing on one of the banner's tiles, redrawn from the Steam library art in the art's pixels (a cell is 150 and a
+ * gap 17), so it covers its tile at any size. The icons are the app's own, from the sprite `/brand/icons.svg`.
+ */
+type Box = [x: number, y: number, width: number, height: number];
+type Bar = [...box: Box, opacity: number];
+type Segment = [x: number, width: number, mark?: 1 | 2 | 3];
+
+export type Art =
+  | { kind: "icon"; icon: "grid" | "plus" | "settings" | "list" | "bookshelf" | "language" }
+  | { kind: "map" }
+  | { kind: "progress"; value: number }
+  | { kind: "book"; cover: keyof typeof covers; bars: Bar[]; at: [number, number]; scale?: number }
+  | { kind: "text"; bar: number; pad: [number, number]; rows: [y: number, segments: Segment[]][] }
+  | { kind: "logo" };
+
+interface Props {
+  cols: number;
+  rows: number;
+  art: Art;
+}
+
+const { cols, rows, art } = Astro.props;
+const width = cols * 150 + (cols - 1) * 17;
+const height = rows * 150 + (rows - 1) * 17;
+const icon: Box = [30, 26, 50, 50];
+
+const covers = {
+  red: { cover: "#6e2a2e", spine: "#552023", ink: "#e2c27e" },
+  green: { cover: "#2e5b4f", spine: "#23473d", ink: "#d9b86c" },
+  navy: { cover: "#22305e", spine: "#1a2549", ink: "#e8ddbf" }
+};
+// A text bar's ink, darker under a highlight, and the highlights by strength.
+const ink = { plain: "#596176", marked: "#485776" };
+const marks = { 1: "#cfe2fe", 2: "#b0d0fd", 3: "#9cc3fc" };
+
+// The art's map: word cards, then note pills, and the links between them by index.
+const cards: Box[] = [[37, 134, 59, 21], [217, 153, 53, 19], [94, 196, 71, 25], [197, 227, 48, 17]];
+const pills: Box[] = [[151, 118, 26, 16], [43, 242, 24, 14]];
+const center = ([x, y, w, h]: Box) => [x + w / 2, y + h / 2];
+const links = [[0, 2], [4, 2], [4, 1], [2, 1], [2, 3], [2, 5]].map((ends) => ends.map((index) => center([...cards, ...pills][index])));
+
+// The four sparkles around the logo, as center and square size: a cross of squares, its left one white.
+const sparkles = [[70, 90, 32], [747.5, 118, 23], [59, 500, 22], [757, 470, 36]];
+const cross = (x: number, y: number, s: number) => [
+  { x: x - s / 2, y: y - 1.5 * s, white: false },
+  { x: x - 1.5 * s, y: y - s / 2, white: true },
+  { x: x + s / 2, y: y - s / 2, white: false },
+  { x: x - s / 2, y: y + s / 2, white: false }
+];
+---
+<svg class="tile-art" viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
+  {art.kind === "icon" && <use href={`/brand/icons.svg#${art.icon}`} x={icon[0]} y={icon[1]} width={icon[2]} height={icon[3]} fill="#fff" />}
+
+  {art.kind === "map" && (
+    <>
+      <use href="/brand/icons.svg#grid" x={icon[0]} y={icon[1]} width={icon[2]} height={icon[3]} fill="#fff" />
+      {links.map(([[x1, y1], [x2, y2]]) => <line class="map-link" x1={x1} y1={y1} x2={x2} y2={y2} />)}
+      {cards.map(([x, y, w, h]) => (
+        <>
+          <rect class="map-card" x={x} y={y} width={w} height={h} rx="2" />
+          <rect class="map-word-bar" x={x + w * 0.18} y={y + h * 0.36} width={w * 0.64} height={h * 0.16} />
+          <rect class="map-meaning" x={x + w * 0.29} y={y + h * 0.6} width={w * 0.42} height={h * 0.12} />
+        </>
+      ))}
+      {pills.map(([x, y, w, h]) => (
+        <>
+          <rect class="map-pill" x={x} y={y} width={w} height={h} rx={h / 2} />
+          <rect class="map-dash" x={x + w * 0.23} y={y + h / 2 - 1.25} width={w * 0.54} height="2.5" rx="1.25" />
+        </>
+      ))}
+    </>
+  )}
+
+  {art.kind === "progress" && (
+    <g fill="#fff">
+      <rect x="29" y="31" width="196" height="34" rx="9" opacity="0.95" />
+      <rect x="29" y={rows > 1 ? 85 : 79} width="96" height="12" rx="6" opacity="0.7" />
+      {rows > 1 && <rect x="29" y="211" width="85" height="45" rx="9" opacity="0.95" />}
+      <rect x="29" y={height - 38} width="257" height="8" rx="4" opacity="0.3" />
+      <rect x="29" y={height - 38} width={257 * art.value} height="8" rx="4" />
+    </g>
+  )}
+
+  {art.kind === "book" && (
+    <>
+      {art.bars.map(([x, y, w, h, opacity]) => <rect x={x} y={y} width={w} height={h} rx={Math.min(h / 2, 7)} fill="#fff" opacity={opacity} />)}
+      <g transform={`translate(${art.at[0]} ${art.at[1]}) scale(${art.scale ?? 1})`}>
+        <rect width="12" height="143" fill={covers[art.cover].spine} />
+        <rect x="12" width="85" height="143" fill={covers[art.cover].cover} />
+        <g fill={covers[art.cover].ink}>
+          <rect x="17.5" y="7.5" width="72" height="128" fill="none" stroke={covers[art.cover].ink} stroke-width="3" />
+          <rect x="29" y="32" width="48" height="5" />
+          <rect x="36" y="43" width="34" height="3" />
+          {cross(52, 80, 7).map(({ x, y }) => <rect x={x} y={y} width="7" height="7" />)}
+          <rect x="39" y="119" width="28" height="3" />
+        </g>
+      </g>
+      <polygon points={`${width - 64},${height - 77} ${width - 64},${height - 26} ${width - 26},${height - 51.5}`} fill="#fff" />
+    </>
+  )}
+
+  {art.kind === "text" && art.rows.map(([y, segments]) => segments.map(([x, w, mark]) => (
+    <>
+      {mark && <rect x={x - art.pad[0]} y={y - art.bar / 2 - art.pad[1]} width={w + 2 * art.pad[0]} height={art.bar + 2 * art.pad[1]} rx="4" fill={marks[mark]} />}
+      <rect x={x} y={y - art.bar / 2} width={w} height={art.bar} rx={art.bar / 2} fill={mark ? ink.marked : ink.plain} />
+    </>
+  )))}
+
+  {art.kind === "logo" && sparkles.map(([x, y, s]) => cross(x, y, s).map((square) => (
+    <rect x={square.x} y={square.y} width={s} height={s} fill={square.white ? "#fff" : "#b0d0fd"} />
+  )))}
+</svg>
+{art.kind === "logo" && (
+  <h1 class="tile-logo">
+    <img src="/brand/logo.webp" alt="Errant Ant" width="853" height="720" decoding="async" fetchpriority="high" />
+  </h1>
+)}

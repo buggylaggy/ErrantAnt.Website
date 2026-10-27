@@ -3,9 +3,10 @@ import PictureRoll from "vui-web/PictureRoll.astro";
 import Tile from "vui-web/Tile.astro";
 import TileGroup from "vui-web/TileGroup.astro";
 import TileWall from "vui-web/TileWall.astro";
+import Banner from "./Banner.astro";
 import ComingSoonTile from "./ComingSoonTile.astro";
 
-/** The start page under the banner: the screenshot tile, then Errant Ant's tiles, in the app's start page style. */
+/** The start page: the banner's tiles, the screenshot tile, then Errant Ant's tiles, in the app's start page style. */
 interface Props {
   about: string;
 }
@@ -18,9 +19,20 @@ const screenshots = [
   { src: "/screenshots/vocabulary.webp", alt: "Vocabulary: every word with its language and how well it is known", caption: "Vocabulary", tint: "#c2d7d3" },
   { src: "/screenshots/map.webp", alt: "The Map: words linked around their roots, with pen strokes", caption: "Map", tint: "#d1cadc" }
 ];
+// The Map tile's board, drawn like the art's map tiles: word cards as [x, y, width] (26 tall), note pills as
+// [x, y, width, height], and the links between them by name.
+const mapCards: Record<string, number[]> = { errant: [140, 64, 76], wander: [30, 22, 72], err: [270, 30, 50], error: [252, 104, 58], wanderer: [36, 108, 84] };
+const mapPills: Record<string, number[]> = { origin: [168, 14, 30, 16], note: [150, 124, 26, 14] };
+const middle = (name: string) => {
+  const [x, y, width, height = 26] = mapCards[name] ?? mapPills[name];
+  return [x + width / 2, y + height / 2];
+};
+const mapLinks = [["wander", "errant"], ["origin", "errant"], ["origin", "err"], ["errant", "err"], ["errant", "error"], ["errant", "wanderer"], ["errant", "note"]].map((ends) => ends.map(middle));
 ---
 <TileWall>
-  <TileGroup title="A look inside" id="look-inside" full>
+  <Banner />
+
+  <TileGroup title="" id="look-inside" full>
     <PictureRoll color="var(--tile-navy)" pictures={screenshots} interval={5000} curtain class="look-inside" />
   </TileGroup>
 
@@ -52,22 +64,21 @@ const screenshots = [
 
   <TileGroup title="Words" id="words">
     <Tile cols={4} rows={2} color="var(--tile-violet)" label="Map" backLabel="Map" backCaption="linked terms">
-      <svg class="map-drawing" viewBox="0 0 360 110" aria-hidden="true">
-        <line class="map-link" x1="180" y1="55" x2="70" y2="25" />
-        <line class="map-link" x1="180" y1="55" x2="290" y2="28" />
-        <line class="map-link" x1="290" y1="28" x2="300" y2="88" />
-        <line class="map-link" x1="180" y1="55" x2="80" y2="90" />
-        <rect class="map-node" x="146" y="43" width="68" height="24" rx="4" />
-        <text x="180" y="60">errant</text>
-        <rect class="map-node" x="36" y="13" width="68" height="24" rx="4" />
-        <text x="70" y="30">wander</text>
-        <rect class="map-node" x="268" y="16" width="44" height="24" rx="4" />
-        <text x="290" y="33">err</text>
-        <rect class="map-node" x="272" y="76" width="56" height="24" rx="4" />
-        <text x="300" y="93">error</text>
-        <rect class="map-node" x="40" y="78" width="80" height="24" rx="4" />
-        <text x="80" y="95">wanderer</text>
-        <path class="map-pen" d="M138 40c18-14 70-14 86 0 12 12 4 30-20 34-24 4-58 2-70-10-6-6-4-16 6-22" />
+      <svg class="map-drawing" viewBox="0 0 356 148" aria-hidden="true">
+        {mapLinks.map(([[x1, y1], [x2, y2]]) => <line class="map-link" x1={x1} y1={y1} x2={x2} y2={y2} />)}
+        {Object.entries(mapCards).map(([word, [x, y, width]]) => (
+          <>
+            <rect class="map-card" x={x} y={y} width={width} height="26" rx="3" />
+            <text class="map-word" x={x + width / 2} y={y + 15}>{word}</text>
+            <rect class="map-meaning" x={x + width * 0.29} y={y + 19} width={width * 0.42} height="2.5" rx="1.25" />
+          </>
+        ))}
+        {Object.values(mapPills).map(([x, y, width, height]) => (
+          <>
+            <rect class="map-pill" x={x} y={y} width={width} height={height} rx={height / 2} />
+            <rect class="map-dash" x={x + width * 0.23} y={y + height / 2 - 1.25} width={width * 0.54} height="2.5" rx="1.25" />
+          </>
+        ))}
       </svg>
       <span slot="back" class="figure">5</span>
     </Tile>

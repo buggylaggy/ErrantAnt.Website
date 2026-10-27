@@ -1,13 +1,15 @@
 # ErrantAnt.Website
 
-The website of Errant Ant at errantant.com: a start page in the style of the app's under a banner of the Steam library
-art and logo, with a Coming soon button, and a privacy policy at `/privacy/`. It is an Astro static site; its top bar,
-pages, tiles, motion and backdrop come from the shared `vui-web` package (`/home/yuki/project/VUI.Web`), pinned in
-`packages/`. Both page files render the whole site from `src/layouts/SitePage.astro` with their own page on show, so
-moving between them animates in place while each file still works on its own. The app screenshots in the first group are
-WebP files in `public/screenshots/`. The banner art, logo and mascot in `public/brand/` are WebP copies of the Steam
-assets in the ErrantAnt repository's `Assets/` folder, as are `favicon.ico` (its 16, 32 and 48 px entries),
-`apple-touch-icon.png` and the link preview `social.png` (the main capsule).
+The website of Errant Ant at errantant.com: a start page in the style of the app's under a banner that rebuilds the
+Steam library art's tile wall from real tiles, with a Coming soon button, and a privacy policy at `/privacy/`. It is an
+Astro static site; its top bar, pages, tiles, motion and backdrop come from the shared `vui-web` package
+(`/home/yuki/project/VUI.Web`), pinned in `packages/`. Both page files render the whole site from
+`src/layouts/SitePage.astro` with their own page on show, so moving between them animates in place while each file still
+works on its own. The app screenshots in the first group are WebP files in `public/screenshots/`. In `public/brand/`, the
+logo and mascot are WebP copies of the Steam assets in the ErrantAnt repository's `Assets/` folder, as are `favicon.ico`
+(its 16, 32 and 48 px entries), `apple-touch-icon.png` and the link preview `social.png` (the main capsule);
+`wordmark.svg` is the app's title art (`tools/art/errant-ant-title.vcanvas`) and `icons.svg` a sprite of the app's
+icons that the banner's tiles draw with.
 
 ## Local development
 

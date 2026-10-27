@@ -3,7 +3,6 @@ import Page from "vui-web/Page.astro";
 import PageBackdrop from "vui-web/PageBackdrop.astro";
 import Pages from "vui-web/Pages.astro";
 import TopBar from "vui-web/TopBar.astro";
-import Banner from "../components/Banner.astro";
 import HomeWall from "../components/HomeWall.astro";
 import PrivacyPolicy from "../components/PrivacyPolicy.astro";
 import BaseLayout from "./BaseLayout.astro";
@@ -36,7 +35,6 @@ const items = [
   <TopBar items={items} current={page} />
   <Pages>
     <Page id="home" title={pages.home.title} current={page === "home"} grid>
-      <Banner />
       <HomeWall about={about} />
     </Page>
     <Page id="privacy" title={pages.privacy.title} current={page === "privacy"}>

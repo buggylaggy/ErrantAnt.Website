@@ -26,65 +26,77 @@
   --new-word: #3fa9f5;
 }
 
-/* The banner: a box that the art covers around its center, at the art's shape while the window is wide enough and
-   cropped at the sides below 280 px of height or top and bottom above 64% of the window's height. The stage carries
-   the art's coordinates, so the logo stays on the art's blue center tile (x 1511–2330, y 378–1028 of 3840 × 1240). */
-.banner {
-  --banner-height: clamp(280px, 100vw * 1240 / 3840, 64svh);
-  position: relative;
-  height: var(--banner-height);
-  overflow: hidden;
-  mask-image: linear-gradient(to bottom, #000 78%, transparent);
-  transition: opacity 360ms ease, translate 480ms cubic-bezier(0.2, 0.9, 0.3, 1);
+/* The bar's first item drawn as the app's wordmark at the label's size: its letters as tall as the label's capitals and
+   standing on its baseline, as the other items do. The label stays, unseen and clipped, as the item's text. */
+.vui-pivot-item[data-vui-page="home"] {
+  width: 5.06em;
+  overflow: clip;
+  color: transparent;
 }
 
-.banner-stage {
+.vui-pivot-item[data-vui-page="home"]::before {
+  content: "";
+  display: inline-block;
+  width: 100%;
+  aspect-ratio: 1602 / 235;
+  background: url("/brand/wordmark.svg") 0 0 / 100% 100% no-repeat;
+}
+
+/* The banner: the art's tile wall in a box across the page under the bar, at the art's shape while the window is wide
+   enough and cropped at the sides below 280 px of height or top and bottom above 64% of the window's height. Its wall
+   takes the art's tile metrics, a cell being 150 of the art's 3840 × 1240 pixels where the art covers the box, and
+   stays centered. Nothing in it is positioned, so the wall's engine measures its tiles in the same place as the
+   others. */
+.banner {
+  --banner-height: clamp(280px, 100vw * 1240 / 3840, 64svh);
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% + 2 * var(--vui-page-x));
+  height: var(--banner-height);
+  margin: calc(-14 * var(--vui-u)) calc(-1 * var(--vui-page-x)) 0;
+  overflow: clip;
+}
+
+.banner-wall {
+  --vui-cell: max(100vw * 150 / 3840, var(--banner-height) * 150 / 1240);
+  --vui-u: calc(var(--vui-cell) / 53);
+  --vui-gap: calc(6 * var(--vui-u));
+  --vui-corner: calc(5 * var(--vui-u));
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  gap: calc(42 * var(--vui-u));
+}
+
+/* A banner tile's drawing covers it. */
+.banner .vui-tile-face {
+  padding: 0;
+}
+
+.tile-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* The logo stands in the middle of the big blue tile, inside its sparkles. */
+.tile-logo {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: max(100%, var(--banner-height) * 3840 / 1240);
-  aspect-ratio: 3840 / 1240;
-  translate: -50% -50%;
-}
-
-.banner-art {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.banner-logo {
-  position: absolute;
-  top: 53.5%;
-  left: 50%;
-  height: 62%;
+  height: 82%;
   aspect-ratio: 853 / 720;
   margin: 0;
   translate: -50% -50%;
-  transition: scale 640ms cubic-bezier(0.2, 1.4, 0.4, 1);
 }
 
-.banner-logo img {
+.tile-logo img {
   display: block;
   width: 100%;
   height: 100%;
-}
-
-/* It comes in with the home page, the logo popping up on its tile, and goes while the bar shows another page. */
-@starting-style {
-  .banner {
-    opacity: 0;
-    translate: 0 calc(-12 * var(--vui-u));
-  }
-
-  .banner-logo {
-    scale: 0.86;
-  }
-}
-
-body:has(.vui-pivot-sub) .banner {
-  opacity: 0;
-  translate: 0 calc(-12 * var(--vui-u));
 }
 
 /* The big screenshot tile: the screenshots' shape, their top kept in view when the first screen cuts them, and
@@ -99,6 +111,15 @@ body:has(.vui-pivot-sub) .banner {
 
 .look-inside .vui-tile-chip {
   font-size: calc(11 * var(--vui-u));
+}
+
+/* Its curtain stays while it is emphasized, and its group has no title. */
+.look-inside.vui-emphasized .vui-tile-curtain {
+  opacity: 1;
+}
+
+.vui-group-header:empty {
+  display: none;
 }
 
 /* The app icon's mascot on the Coming soon tile, as on the art's blue tile. */
@@ -163,6 +184,8 @@ body:has(.vui-pivot-sub) .banner {
   text-underline-offset: 0.3em;
 }
 
+/* A map as the art draws it: white word cards (the word over a gray meaning line) and lavender note pills joined by
+   thin white links. */
 .map-drawing {
   position: absolute;
   inset: 0;
@@ -170,26 +193,35 @@ body:has(.vui-pivot-sub) .banner {
   height: 100%;
 }
 
-.map-drawing text {
-  fill: currentColor;
+.map-link {
+  stroke: rgb(255 255 255 / 0.5);
+  stroke-width: 2;
+}
+
+.map-card {
+  fill: #ffffff;
+}
+
+.map-word {
+  fill: #4a445c;
   font-size: 13px;
   text-anchor: middle;
 }
 
-.map-node {
-  fill: rgb(255 255 255 / 0.16);
-  stroke: rgb(255 255 255 / 0.7);
+.map-word-bar {
+  fill: #4a445c;
 }
 
-.map-link {
-  stroke: rgb(255 255 255 / 0.55);
+.map-meaning {
+  fill: #a4a1ad;
 }
 
-.map-pen {
-  fill: none;
-  stroke: #f4d35e;
-  stroke-linecap: round;
-  stroke-width: 2;
+.map-pill {
+  fill: #e9ddff;
+}
+
+.map-dash {
+  fill: #8568d5;
 }
 
 /* The Coming soon notice: a bar drawn like the top one that rises from the bottom edge and sinks again. */
