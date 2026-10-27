@@ -2,6 +2,7 @@
 
 | Task | Status | Queue | Goal |
 | --- | --- | --- | --- |
+| [20261026-plain-copy](archive/2026-10/20261026-plain-copy.md) | completed | current | Explanatory copy stripped site-wide: no Early Access group, a lone Privacy policy tile in About, short tile captions, a copyright-only footer, and a professional app-only privacy policy; committed and pushed |
 | [20261026-brand-assets-refresh](archive/2026-10/20261026-brand-assets-refresh.md) | completed | current | The site rebuilt around the new brand assets: the library hero art as a full-bleed banner with the logo, the art's palette, real icons, a social card and the store page's facts; committed, pushed and deployed |
 | [20261025-big-tile-and-privacy](archive/2026-10/20261025-big-tile-and-privacy.md) | completed | current | The screenshot tile alone in its row, nearly full width under a deep curtain; a Privacy policy tile and bar link opening a sub page with the app's VPivot animation |
 | [20261025-vtile-port](archive/2026-10/20261025-vtile-port.md) | completed | current | Homepage refinements: VUI.Web gets VUI.Avalonia's full VTile motion (growth that pushes, flip, live faces), the bar blurs like the app's, a super-wide tile rolls app screenshots and dyes the background on hover |

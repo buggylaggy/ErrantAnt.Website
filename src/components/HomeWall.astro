@@ -25,16 +25,15 @@ const screenshots = [
   </TileGroup>
 
   <TileGroup title="Coming soon" id="coming-soon">
-    <Tile cols={4} rows={2} color="var(--tile-navy)" label="For language learners" backLabel="No flashcards to review">
+    <Tile cols={4} rows={2} color="var(--tile-navy)">
       <p class="hero-text">{about}</p>
-      <p slot="back" class="hero-text">Every page you turn and every word you look up is counted, and the colors fade as the words become yours.</p>
     </Tile>
     <ComingSoonTile />
-    <Tile cols={2} color="var(--tile-steel)" caption="Learning languages" backLabel="Offline dictionaries" backCaption="Free, each downloaded once when you turn its language on">
+    <Tile cols={2} color="var(--tile-steel)" caption="Languages" backCaption="Dictionaries">
       <span class="figure">12</span>
       <span slot="back" class="figure">24</span>
     </Tile>
-    <Tile cols={2} color="var(--tile-violet)" title="Local-first" caption="No account, no sign-in, no ads" backLabel="Your library" backCaption="Your books and your learning stay on your computer" />
+    <Tile cols={2} color="var(--tile-violet)" title="Local-first" caption="No account · No ads" />
   </TileGroup>
 
   <TileGroup title="Reading" id="reading">
@@ -46,13 +45,13 @@ const screenshots = [
         be <span class="phrase">in want of</span> a wife.
       </p>
     </Tile>
-    <Tile cols={2} color="var(--tile-ochre)" title="EPUB · PDF · TXT" caption="Your own books, or free ones from Project Gutenberg" backLabel="PDF" backCaption="Text-based PDFs are rebuilt into reflowing text" />
-    <Tile cols={2} color="var(--tile-red)" title="Paged reading" caption="A page counts as read when you turn it" backLabel="Turning pages" backCaption="→, Space, or a click in the margin" />
-    <Tile cols={4} color="var(--tile-teal)" title="Word panel" caption="How well you know a word, your own meaning, the dictionaries you turned on and every sentence you met it in" backLabel="Keep for reading" backCaption="Makes a group of words a unit of its own in later reading" />
+    <Tile cols={2} color="var(--tile-ochre)" title="EPUB · PDF · TXT" caption="Project Gutenberg" />
+    <Tile cols={2} color="var(--tile-red)" title="Paged reading" />
+    <Tile cols={4} color="var(--tile-teal)" title="Word panel" caption="Dictionaries · Notes · Sentences" />
   </TileGroup>
 
   <TileGroup title="Words" id="words">
-    <Tile cols={4} rows={2} color="var(--tile-violet)" label="Map" caption="Lay words, notes, pictures and pen strokes out on endless boards" backLabel="Map" backCaption="linked terms">
+    <Tile cols={4} rows={2} color="var(--tile-violet)" label="Map" backLabel="Map" backCaption="linked terms">
       <svg class="map-drawing" viewBox="0 0 360 110" aria-hidden="true">
         <line class="map-link" x1="180" y1="55" x2="70" y2="25" />
         <line class="map-link" x1="180" y1="55" x2="290" y2="28" />
@@ -77,26 +76,11 @@ const screenshots = [
       <span class="figure">75%</span>
       <span slot="back" class="term">possession</span>
     </Tile>
-    <Tile cols={2} color="var(--tile-slate)" label="Vocabulary · Phrases" caption="Every term you meet, with its counts" backLabel="Find any term" backCaption="Search, filter by language, sort by least known" />
-    <Tile cols={2} color="var(--tile-red)" title="Import word lists" caption="Typed, pasted or from TXT, CSV and TSV" backLabel="Import" backCaption="Import them as words or as phrases" />
-  </TileGroup>
-
-  <TileGroup title="Early Access" id="early-access">
-    <Tile cols={4} rows={2} color="var(--tile-teal)" label="Early Access" backLabel="For about half a year">
-      <p class="hero-text">Complete for everyday reading, and growing with its readers: your feedback decides which languages, dictionaries and features come next.</p>
-      <p slot="back" class="hero-text">Errant Ant stays in Early Access for around six months, depending on what we learn from readers along the way.</p>
-    </Tile>
-    <Tile cols={2} color="var(--tile-red)" title="Whole words" caption="Chinese and Japanese split into words, not characters" />
-    <Tile cols={2} color="var(--tile-navy)" title="macOS" caption="A Mac version after Windows and Linux" />
-    <Tile cols={2} color="var(--tile-ochre)" title="Sync" caption="Your library and learning across your computers" />
-    <Tile cols={2} color="var(--tile-slate)" title="Steam Deck" caption="Touch and controller support" />
+    <Tile cols={2} color="var(--tile-slate)" title="Vocabulary" caption="Words · Phrases" />
+    <Tile cols={2} color="var(--tile-red)" title="Word lists" caption="TXT · CSV · TSV" />
   </TileGroup>
 
   <TileGroup title="About" id="about">
-    <Tile cols={2} color="var(--tile-steel)" title="Privacy policy" caption="No cookies, no tracking; your data stays with you" href="/privacy/" data-vui-page="privacy" />
-    <Tile cols={2} color="var(--tile-violet)" caption="Interface languages" backLabel="Interface languages" backCaption="From English and Deutsch to 日本語 and 繁體中文">
-      <span class="figure">12</span>
-    </Tile>
-    <Tile cols={4} color="var(--tile-navy)" title="System requirements" caption="64-bit Windows 10 or 11, Linux or SteamOS 3, with a keyboard and mouse; online only to download books and dictionaries" />
+    <Tile cols={2} color="var(--tile-steel)" title="Privacy policy" href="/privacy/" data-vui-page="privacy" />
   </TileGroup>
 </TileWall>
