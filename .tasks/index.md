@@ -2,6 +2,7 @@
 
 | Task | Status | Queue | Goal |
 | --- | --- | --- | --- |
+| [20261027-policy-pace](archive/2026-10/20261027-policy-pace.md) | completed | current | No opening sentence in the privacy policy, and quicker tile turns between the home and privacy pages: VUI.Web 0.3.1 caps a wall's stagger at 24 tiles' time |
 | [20261026-live-banner](archive/2026-10/20261026-live-banner.md) | completed | current | The banner rebuilt from real tiles at the library art's cells with its drawings and the logo, pushing on hover and scrolling to the screenshots on click; untitled screenshot group with a lasting curtain; Map tile in the art's style; the wordmark in the bar |
 | [20261026-plain-copy](archive/2026-10/20261026-plain-copy.md) | completed | current | Explanatory copy stripped site-wide: no Early Access group, a lone Privacy policy tile in About, short tile captions, a copyright-only footer, and a professional app-only privacy policy; committed and pushed |
 | [20261026-brand-assets-refresh](archive/2026-10/20261026-brand-assets-refresh.md) | completed | current | The site rebuilt around the new brand assets: the library hero art as a full-bleed banner with the logo, the art's palette, real icons, a social card and the store page's facts; committed, pushed and deployed |
