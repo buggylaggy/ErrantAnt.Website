@@ -2,14 +2,12 @@
 import Tile from "vui-web/Tile.astro";
 
 /**
- * The page's call to action: a leaf tile-button with the app icon's mascot whose click raises a bottom bar saying
- * Errant Ant is not out yet. The bar sinks again after 3 s; another click starts the wait over.
+ * The Steam tile: a tile-button whose click raises a bottom bar saying Errant Ant is not on Steam yet. The bar sinks
+ * again after 3 s; another click starts the wait over.
  */
 ---
-<Tile cols={2} rows={2} color="var(--vui-accent)" title="Coming soon" caption="Windows · Linux" button class="coming-soon">
-  <img class="tile-mascot" src="/brand/mascot.webp" alt="" width="512" height="512" decoding="async" />
-</Tile>
-<p class="notice vui-bar" role="status">Errant Ant isn't out yet. Coming soon to Steam.</p>
+<Tile cols={2} rows={2} color="var(--tile-slate)" title="Steam" caption="Coming soon" button class="coming-soon" />
+<p class="notice vui-bar" role="status">Errant Ant is coming soon to Steam.</p>
 
 <script>
   const notice = document.querySelector<HTMLElement>(".notice")!;

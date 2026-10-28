@@ -36,9 +36,12 @@ const mapLinks = [["wander", "errant"], ["origin", "errant"], ["origin", "err"],
     <PictureRoll color="var(--tile-navy)" pictures={screenshots} interval={5000} curtain class="look-inside" />
   </TileGroup>
 
-  <TileGroup title="Coming soon" id="coming-soon">
+  <TileGroup title="Get it" id="get">
     <Tile cols={4} rows={2} color="var(--tile-navy)">
       <p class="hero-text">{about}</p>
+    </Tile>
+    <Tile cols={2} rows={2} color="var(--vui-accent)" title="Microsoft Store" caption="Windows" href="https://apps.microsoft.com/detail/9PD02WCJVDQC" target="_blank" rel="noopener">
+      <img class="tile-mascot" src="/brand/mascot.webp" alt="" width="512" height="512" decoding="async" />
     </Tile>
     <ComingSoonTile />
     <Tile cols={2} color="var(--tile-steel)" caption="Languages" backCaption="Dictionaries">

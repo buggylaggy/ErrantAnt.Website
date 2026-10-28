@@ -122,7 +122,7 @@
   display: none;
 }
 
-/* The app icon's mascot on the Coming soon tile, as on the art's blue tile. */
+/* The app icon's mascot on the Microsoft Store tile, as on the art's blue tile. */
 .tile-mascot {
   position: absolute;
   top: 50%;
@@ -224,7 +224,7 @@
   fill: #8568d5;
 }
 
-/* The Coming soon notice: a bar drawn like the top one that rises from the bottom edge and sinks again. */
+/* The Steam notice: a bar drawn like the top one that rises from the bottom edge and sinks again. */
 .notice {
   position: fixed;
   top: auto;
