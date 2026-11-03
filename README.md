@@ -1,7 +1,7 @@
 # ErrantAnt.Website
 
 The website of Errant Ant at errantant.com: a start page in the style of the app's under a banner that rebuilds the
-Steam library art's tile wall from real tiles, with a Microsoft Store tile, a Steam coming-soon button and a privacy
+Steam library art's tile wall from real tiles, its Microsoft Store and Steam links among them, and a privacy
 policy at `/privacy/`. It is an Astro static site; its top bar, pages, tiles, motion and backdrop come from the shared
 `vui-web` package (`/home/yuki/project/VUI.Web`), pinned in `packages/`. Both page files render the whole site from
 `src/layouts/SitePage.astro` with their own page on show, so moving between them animates in place while each file still

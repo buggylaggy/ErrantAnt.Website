@@ -4,22 +4,31 @@ import TileArt, { type Art } from "./TileArt.astro";
 
 /**
  * The home page's banner: the Steam library art's tile wall as real tiles, at the art's cells in its five groups, with
- * the art's drawings and the Errant Ant logo on the big blue tile. Each tile opens the screenshot tile below. They sit
- * in the home page's tile wall, so they turn in, grow, push and press with its other tiles.
+ * the art's drawings and the Errant Ant logo on the big blue tile. Each drawn tile opens the screenshot tile below, and
+ * the two store tiles left of the logo open Errant Ant's store pages. They sit in the home page's tile wall, so they
+ * turn in, grow, push and press with its other tiles.
  */
+// A store page's tile: a title and caption instead of a drawing, with the app icon's mascot on the Microsoft Store's.
+interface Store {
+  title: string;
+  caption: string;
+  href: string;
+  mascot?: boolean;
+}
+
 interface BannerTile {
   at: [col: number, row: number];
   size: [cols: number, rows: number];
   color: string;
-  art: Art;
+  face: Art | Store;
 }
 
 // A tile in one of the site's tile colors, or white as a page.
-const tile = (at: BannerTile["at"], size: BannerTile["size"], color: string, art: Art): BannerTile => ({
+const tile = (at: BannerTile["at"], size: BannerTile["size"], color: string, face: Art | Store): BannerTile => ({
   at,
   size,
   color: color === "white" ? "var(--page-surface)" : `var(--tile-${color})`,
-  art
+  face
 });
 const icon = (name: Extract<Art, { kind: "icon" }>["icon"]): Art => ({ kind: "icon", icon: name });
 const map: Art = { kind: "map" };
@@ -79,8 +88,8 @@ const groups: { columns: number; tiles: BannerTile[] }[] = [
     columns: 4,
     tiles: [
       tile([0, 0], [4, 2], "white", reader),
-      tile([0, 2], [2, 2], "blue", { kind: "book", cover: "red", bars: [[29, 25, 190, 20, 0.95], [29, 56, 113, 20, 0.95]], at: [22, 151] }),
-      tile([2, 2], [2, 2], "teal", progress(0.69)),
+      tile([0, 2], [2, 2], "blue", { title: "Microsoft Store", caption: "Windows", href: "https://apps.microsoft.com/detail/9PD02WCJVDQC", mascot: true }),
+      tile([2, 2], [2, 2], "slate", { title: "Steam", caption: "Coming soon", href: "https://store.steampowered.com/app/5507590" }),
       tile([3, 4], [1, 1], "red", icon("bookshelf"))
     ]
   },
@@ -133,12 +142,19 @@ const groups: { columns: number; tiles: BannerTile[] }[] = [
   <div class="banner-wall">
     {groups.map((group) => (
       <div class="vui-group-tiles" style={`--vui-group-columns: ${group.columns};`}>
-        {group.tiles.map(({ at: [col, row], size: [cols, rows], color, art }) => (
+        {group.tiles.map(({ at: [col, row], size: [cols, rows], color, face }) => {
           // The style replaces Tile's own, so it carries the tile's color along with its cell.
-          <Tile cols={cols} rows={rows} href="#look-inside" style={`--vui-tile-color: ${color}; grid-area: ${row + 1} / ${col + 1} / span ${rows} / span ${cols};`}>
-            <TileArt cols={cols} rows={rows} art={art} />
-          </Tile>
-        ))}
+          const style = `--vui-tile-color: ${color}; grid-area: ${row + 1} / ${col + 1} / span ${rows} / span ${cols};`;
+          return "href" in face ? (
+            <Tile cols={cols} rows={rows} title={face.title} caption={face.caption} href={face.href} target="_blank" rel="noopener" style={style}>
+              {face.mascot && <img class="tile-mascot" src="/brand/mascot.webp" alt="" width="512" height="512" decoding="async" />}
+            </Tile>
+          ) : (
+            <Tile cols={cols} rows={rows} href="#look-inside" style={style}>
+              <TileArt cols={cols} rows={rows} art={face} />
+            </Tile>
+          );
+        })}
       </div>
     ))}
   </div>
