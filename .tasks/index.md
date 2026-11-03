@@ -2,6 +2,7 @@
 
 | Task | Status | Queue | Goal |
 | --- | --- | --- | --- |
+| [20261103-get-it-from](archive/2026-11/20261103-get-it-from.md) | completed | current | The banner store tiles' captions read "Get it from Microsoft Store" and "Get it from Steam" |
 | [20261103-store-logos](archive/2026-11/20261103-store-logos.md) | completed | current | The banner's store tiles carry the stores' own marks: Microsoft's badge with "Windows" in place of the mascot, Valve's white Steam logo alone |
 | [20261103-store-tiles](archive/2026-11/20261103-store-tiles.md) | completed | current | The Steam tile links to its store page, and the Microsoft Store and Steam tiles replace the two banner tiles left of the logo |
 | [20261027-policy-pace](archive/2026-10/20261027-policy-pace.md) | completed | current | No opening sentence in the privacy policy, and quicker tile turns between the home and privacy pages: VUI.Web 0.3.1 caps a wall's stagger at 24 tiles' time |

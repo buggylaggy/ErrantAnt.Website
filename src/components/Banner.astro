@@ -8,11 +8,11 @@ import TileArt, { type Art } from "./TileArt.astro";
  * the two store tiles left of the logo open Errant Ant's store pages. They sit in the home page's tile wall, so they
  * turn in, grow, push and press with its other tiles.
  */
-// A store page's tile: the store's own mark instead of a drawing, its file at its size, and an optional caption.
+// A store page's tile: the store's own mark instead of a drawing, its file at its size, and a caption.
 interface Store {
   href: string;
   logo: { src: string; width: number; height: number; alt: string };
-  caption?: string;
+  caption: string;
 }
 
 interface BannerTile {
@@ -87,8 +87,8 @@ const groups: { columns: number; tiles: BannerTile[] }[] = [
     columns: 4,
     tiles: [
       tile([0, 0], [4, 2], "white", reader),
-      tile([0, 2], [2, 2], "blue", { href: "https://apps.microsoft.com/detail/9PD02WCJVDQC", logo: { src: "/brand/microsoft-store-badge.svg", width: 161, height: 44, alt: "Download from the Microsoft Store" }, caption: "Windows" }),
-      tile([2, 2], [2, 2], "slate", { href: "https://store.steampowered.com/app/5507590", logo: { src: "/brand/steam-logo.svg", width: 293, height: 89, alt: "Steam" } }),
+      tile([0, 2], [2, 2], "blue", { href: "https://apps.microsoft.com/detail/9PD02WCJVDQC", logo: { src: "/brand/microsoft-store-badge.svg", width: 161, height: 44, alt: "Download from the Microsoft Store" }, caption: "Get it from Microsoft Store" }),
+      tile([2, 2], [2, 2], "slate", { href: "https://store.steampowered.com/app/5507590", logo: { src: "/brand/steam-logo.svg", width: 293, height: 89, alt: "Steam" }, caption: "Get it from Steam" }),
       tile([3, 4], [1, 1], "red", icon("bookshelf"))
     ]
   },
