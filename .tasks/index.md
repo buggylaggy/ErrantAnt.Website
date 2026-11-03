@@ -2,6 +2,7 @@
 
 | Task | Status | Queue | Goal |
 | --- | --- | --- | --- |
+| [20261103-store-logos](archive/2026-11/20261103-store-logos.md) | completed | current | The banner's store tiles carry the stores' own marks: Microsoft's badge with "Windows" in place of the mascot, Valve's white Steam logo alone |
 | [20261103-store-tiles](archive/2026-11/20261103-store-tiles.md) | completed | current | The Steam tile links to its store page, and the Microsoft Store and Steam tiles replace the two banner tiles left of the logo |
 | [20261027-policy-pace](archive/2026-10/20261027-policy-pace.md) | completed | current | No opening sentence in the privacy policy, and quicker tile turns between the home and privacy pages: VUI.Web 0.3.1 caps a wall's stagger at 24 tiles' time |
 | [20261026-live-banner](archive/2026-10/20261026-live-banner.md) | completed | current | The banner rebuilt from real tiles at the library art's cells with its drawings and the logo, pushing on hover and scrolling to the screenshots on click; untitled screenshot group with a lasting curtain; Map tile in the art's style; the wordmark in the bar |

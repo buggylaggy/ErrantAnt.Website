@@ -6,10 +6,13 @@ policy at `/privacy/`. It is an Astro static site; its top bar, pages, tiles, mo
 `vui-web` package (`/home/yuki/project/VUI.Web`), pinned in `packages/`. Both page files render the whole site from
 `src/layouts/SitePage.astro` with their own page on show, so moving between them animates in place while each file still
 works on its own. The app screenshots in the first group are WebP files in `public/screenshots/`. In `public/brand/`, the
-logo and mascot are WebP copies of the Steam assets in the ErrantAnt repository's `Assets/` folder, as are `favicon.ico`
-(its 16, 32 and 48 px entries), `apple-touch-icon.png` and the link preview `social.png` (the main capsule);
-`wordmark.svg` is the app's title art (`tools/art/errant-ant-title.vcanvas`) and `icons.svg` a sprite of the app's
-icons that the banner's tiles draw with.
+logo is a WebP copy of a Steam asset in the ErrantAnt repository's `Assets/` folder, as are `favicon.ico` (its 16, 32
+and 48 px entries), `apple-touch-icon.png` and the link preview `social.png` (the main capsule); `wordmark.svg` is the
+app's title art (`tools/art/errant-ant-title.vcanvas`) and `icons.svg` a sprite of the app's icons that the banner's
+tiles draw with. The store tiles carry the stores' own marks: `microsoft-store-badge.svg` is Microsoft's "Download from
+the Microsoft Store" badge as served at `get.microsoft.com/images/en-us%20dark.svg`, and `steam-logo.svg` is Valve's
+Steam logo from its store header, given a valid viewBox and the white that Valve's brand guidelines set for dark
+backgrounds.
 
 ## Local development
 
